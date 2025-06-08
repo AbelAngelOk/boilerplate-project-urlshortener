@@ -1,8 +1,24 @@
 {
   "version": 2,
-  "functions": {
-    "api/*.js": {
-      "runtime": "nodejs18.x"
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/api/shorten",
+      "methods": ["POST"],
+      "dest": "/api/shorten.js"
+    },
+    {
+      "src": "/api/([0-9]+)",
+      "dest": "/api/redirect.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/views/index.html"
+    }
+  ]
 }
